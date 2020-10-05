@@ -1,3 +1,6 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable func-names */
+/* eslint-disable no-undef */
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
@@ -25,28 +28,11 @@ async function initExercise() {
     console.log(workout);
   }
   if (workout) {
-    location.search = "?id=" + workout._id;
+    location.search = `?id=${workout._id}`;
   }
 }
 
 initExercise();
-
-function handleWorkoutTypeChange(event) {
-  workoutType = event.target.value;
-
-  if (workoutType === "cardio") {
-    cardioForm.classList.remove("d-none");
-    resistanceForm.classList.add("d-none");
-  } else if (workoutType === "resistance") {
-    resistanceForm.classList.remove("d-none");
-    cardioForm.classList.add("d-none");
-  } else {
-    cardioForm.classList.add("d-none");
-    resistanceForm.classList.add("d-none");
-  }
-
-  validateInputs();
-}
 
 function validateInputs() {
   let isValid = true;
@@ -94,10 +80,38 @@ function validateInputs() {
   }
 }
 
+function handleWorkoutTypeChange(event) {
+  workoutType = event.target.value;
+
+  if (workoutType === "cardio") {
+    cardioForm.classList.remove("d-none");
+    resistanceForm.classList.add("d-none");
+  } else if (workoutType === "resistance") {
+    resistanceForm.classList.remove("d-none");
+    cardioForm.classList.add("d-none");
+  } else {
+    cardioForm.classList.add("d-none");
+    resistanceForm.classList.add("d-none");
+  }
+
+  validateInputs();
+}
+
+function clearInputs() {
+  cardioNameInput.value = "";
+  nameInput.value = "";
+  setsInput.value = "";
+  distanceInput.value = "";
+  durationInput.value = "";
+  repsInput.value = "";
+  resistanceDurationInput.value = "";
+  weightInput.value = "";
+}
+
 async function handleFormSubmit(event) {
   event.preventDefault();
 
-  let workoutData = {};
+  const workoutData = {};
 
   if (workoutType === "cardio") {
     workoutData.type = "cardio";
@@ -125,22 +139,11 @@ function handleToastAnimationEnd() {
   }
 }
 
-function clearInputs() {
-  cardioNameInput.value = "";
-  nameInput.value = "";
-  setsInput.value = "";
-  distanceInput.value = "";
-  durationInput.value = "";
-  repsInput.value = "";
-  resistanceDurationInput.value = "";
-  weightInput.value = "";
-}
-
 if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
 }
 if (completeButton) {
-  completeButton.addEventListener("click", function (event) {
+  completeButton.addEventListener("click", (event) => {
     shouldNavigateAway = true;
     handleFormSubmit(event);
   });

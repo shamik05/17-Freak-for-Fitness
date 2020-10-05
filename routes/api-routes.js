@@ -1,4 +1,3 @@
-// const path = require("path");
 const db = require("../models");
 
 module.exports = (app) => {
@@ -30,7 +29,7 @@ module.exports = (app) => {
   app.put("/api/workouts/:id", (req, res) => {
     // console.log(req.params, req.body);
     db.Workout.findByIdAndUpdate(req.params.id,
-      { $push: { exercises: req.body } }).then((dbWorkout) => {
+      { $push: { exercises: req.body } }, { runValidators: true }).then((dbWorkout) => {
       res.json(dbWorkout);
     })
       .catch((err) => {

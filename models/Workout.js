@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
@@ -26,24 +27,28 @@ const WorkoutSchema = new Schema({
       },
       duration: {
         type: Number,
-        trim: true,
+        min: 1,
         required: true,
       },
       distance: {
         type: Number,
-        trim: true,
+        min: 1,
+
       },
       weight: {
         type: Number,
-        trim: true,
+        min: 1,
+
       },
       reps: {
         type: Number,
-        trim: true,
+        min: 1,
+
       },
       sets: {
         type: Number,
-        trim: true,
+        min: 1,
+
       },
     },
   ],
