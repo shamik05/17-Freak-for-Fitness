@@ -16,7 +16,7 @@ const WorkoutSchema = new Schema({
         type: String,
         trim: true,
         required: true,
-        // enum: ["cardio", "resistance"],
+        enum: ["cardio", "resistance"],
       },
       name: {
         type: String,
@@ -47,6 +47,17 @@ const WorkoutSchema = new Schema({
       },
     },
   ],
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+});
+
+WorkoutSchema.virtual("totalDuration").get(function () {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue.duration;
+
+  return this.exercises.reduce(reducer, 0);
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
