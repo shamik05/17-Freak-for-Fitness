@@ -6,6 +6,7 @@ const logger = require("morgan");
 const PORT = process.env.PORT || 8080;
 const app = express();
 
+// Set express logging and routing
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.static("public"));
 require("./routes/api-routes")(app);
 require("./routes/html-routes")(app);
 
+// Setup mongo connection
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false,
